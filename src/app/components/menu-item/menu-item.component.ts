@@ -8,7 +8,7 @@ import { INavItem } from '../../models/nav-item.model';
 })
 export class MenuItemComponent {
   @Input()
-  childrens?: INavItem[];
+  children?: INavItem[];
 
   @Input()
   item?: INavItem;

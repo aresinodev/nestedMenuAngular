@@ -1,17 +1,16 @@
 <mat-menu
   #menu="matMenu">
-  <span *ngFor="let child of childrens">
-    <ng-container *ngIf="child.childrens?.length; else noChildrens">
+  <span *ngFor="let child of children">
+    <ng-container
+      *ngIf="child.children?.length; else noChildren">
       <app-menu-item
         [item]="child"
-        [childrens]="child.childrens">
+        [children]="child.children">
       </app-menu-item>
     </ng-container>
 
-    <ng-template #noChildrens>
-      <button
-        mat-menu-item
-        color="primary">
+    <ng-template #noChildren>
+      <button mat-menu-item>
         {{ child.name }}
       </button>
     </ng-template>
@@ -20,7 +19,6 @@
 
 <button
   mat-menu-item
-  color="primary"
   [matMenuTriggerFor]="menu">
   {{ item?.name }}
 </button>

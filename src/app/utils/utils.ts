@@ -1,5 +1,5 @@
-import {IDefaultItem} from "../models/default-item.model";
-import {INavItem} from "../models/nav-item.model";
+import { IDefaultItem } from '../models/default-item.model';
+import { INavItem } from '../models/nav-item.model';
 
 export function buildingMenu(items: IDefaultItem[]): INavItem[] {
   let navMenu: INavItem[] = [];
@@ -11,7 +11,8 @@ export function buildingMenu(items: IDefaultItem[]): INavItem[] {
 
         if (newItem) {
           navMenu = [
-            ...navMenu.filter(item => item?.id !== newItem?.id),
+            ...navMenu
+            .filter(item => item?.id !== newItem?.id),
             newItem
           ].sort((a, b) => a.id - b.id);
 
@@ -19,13 +20,18 @@ export function buildingMenu(items: IDefaultItem[]): INavItem[] {
         }
       });
     } else {
-      const existOption = navMenu.find(item => item?.id === optionMenu?.id);
+      const existOption = navMenu
+      .find(item => item?.id === optionMenu?.id);
 
       if (!existOption) {
-        const { parentId, ...rest } = optionMenu;
+        const {
+          parentId,
+          ...restParams
+        } = optionMenu;
+
         navMenu = [
           ...navMenu,
-          rest
+          restParams
         ];
       }
     }
@@ -34,29 +40,32 @@ export function buildingMenu(items: IDefaultItem[]): INavItem[] {
   return navMenu;
 }
 
-export function generateItem(menuItem: INavItem, children: IDefaultItem): INavItem | null {
-  if (menuItem.id === children?.parentId) {
+export function generateItem(
+  menuItem: INavItem, child: IDefaultItem
+): INavItem | null {
+  if (menuItem.id === child?.parentId) {
     return {
       ...menuItem,
-      childrens: [
-        ...menuItem?.childrens || [],
-        children
+      children: [
+        ...menuItem?.children || [],
+        child
       ]
     };
   } else {
-    if (menuItem?.childrens?.length) {
-      for (let i = 0; i < menuItem.childrens.length; i++) {
-        const subItem = menuItem.childrens[i];
-        const structure = generateItem(subItem, children);
+    if (menuItem?.children?.length) {
+      for (let i = 0; i < menuItem.children.length; i++) {
+        const subItem = menuItem.children[i];
+        const node = generateItem(subItem, child);
 
-        if (structure) {
-          i = menuItem.childrens.length;
+        if (node) {
+          i = menuItem.children.length;
 
           return {
             ...menuItem,
-            childrens: [
-              ...menuItem?.childrens.filter(item => item.id !== structure.id) || [],
-              structure
+            children: [
+              ...menuItem?.children
+              .filter(item => item.id !== node.id) || [],
+              node
             ]
           };
         }
