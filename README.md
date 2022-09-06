@@ -14,4 +14,4 @@ La aplicación se recargará automáticamente si se realizar algún cambio en el
 
 Menú anidado dinámicamente. Algunas imágenes del proyecto:
 
-![](https://i.ibb.co/42Ztmjx/nested-menu.gif)
+[![nested-menu.gif](https://i.postimg.cc/J0hqVQ78/nested-menu.gif)](https://postimg.cc/mz0M7CFp)
