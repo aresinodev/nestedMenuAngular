@@ -1,0 +1,17 @@
+<mat-toolbar class="menu-bar mat-elevation-z1">
+  <span *ngFor="let item of items">
+    <ng-container *ngIf="item.childrens?.length; else noChildrens">
+      <app-menu-item
+        [item]="item"
+        [childrens]="item.childrens">
+      </app-menu-item>
+    </ng-container>
+    <ng-template #noChildrens>
+      <button
+        mat-menu-item
+        color="primary">
+        {{ item.name }}
+      </button>
+    </ng-template>
+  </span>
+</mat-toolbar>
